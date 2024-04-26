@@ -951,6 +951,7 @@ html, body{
     .container-offers-home-page{
         display: flex;
         justify-content: space-between;
+        align-items: center;
         padding: 50px;
         flex-wrap: wrap;
         width: 100%;
