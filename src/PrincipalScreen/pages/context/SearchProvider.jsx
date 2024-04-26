@@ -26,7 +26,7 @@ export const SearchProvider = ({children}) => {
 
     const onSubmitForm = (event) => {
         event.preventDefault();
-        console.log(productsFind)
+        // console.log(productsFind)
         navigate(`?q=${inputValue}`)
 
     }

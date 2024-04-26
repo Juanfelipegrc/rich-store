@@ -71,7 +71,7 @@ export const LoginPage = () => {
                   placeholder='Enter Password'
                   value={inputPassword}
                   onChange={onInputChangePassword}
-                  className='input-login-page'
+                  className='input-login-page-2'
                 />
                 <div className='container-button-see-password'>
                   <a className='button-see-password' onClick={() => onPasswordVisibility()}>{buttonSeePassword}</a>

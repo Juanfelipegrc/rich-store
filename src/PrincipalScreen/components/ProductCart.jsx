@@ -28,7 +28,7 @@ export const ProductCart = ({product}) => {
     <>
 
     <div className='product'>
-        <img className='image-product' src={`../../../assets/products/${product.id}.webp`} alt="" />
+        <img className='image-product' src={`/assets/products/${product.id}.webp`} alt="" />
         <div className='content-product'>
             <h4 className='item-content-product'>Name: {product.name}</h4>
             <h4 className='item-content-product'>Price: ${product.price}</h4>

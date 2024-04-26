@@ -69,7 +69,7 @@ export const ProductIndividualPage = () => {
           <h1 className='title-product-individual'>{productIndividual.name}</h1>
             <div className='container-product-individual animate__animated animate__fadeInLeft'>
               <div className='container-image'>
-                  <img className='image-product-individual-page' src={`../../../assets/products/${productIndividual.id}.webp`} alt="" />
+                  <img className='image-product-individual-page' src={`/assets/products/${productIndividual.id}.webp`} alt="" />
               </div>
 
 

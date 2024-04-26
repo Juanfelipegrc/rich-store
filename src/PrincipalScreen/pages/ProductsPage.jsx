@@ -21,7 +21,7 @@ export const ProductsPage = () => {
           
             <div className='container-products-search'>
               <div className='search-bar'>
-                <h3>Search</h3>
+                <h3 className='title-search-bar'>Search</h3>
                 <form className='form-search-bar' onSubmit={onSubmitForm}>
                   <input 
                     type="text"

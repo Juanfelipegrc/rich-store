@@ -26,7 +26,7 @@ export const AboutUs = () => {
                 </p>
             </div>
             <div className='container-image-about-us'>
-                <img src="../../../assets/logotipo.png" alt="logotipo" />
+                <img src="/assets/logotipo.png" alt="logotipo" />
             </div>
         </div>
     

@@ -9,7 +9,7 @@ export const Product = ({product}) => {
 
   const {onSeeMore} = useContext(ProductContext);
   
-  console.log(product.added)
+  // console.log(product.added)
 
   
   const productAdded = cartState.find(productAdded => productAdded.id === product.id) ? true : false
@@ -26,7 +26,7 @@ export const Product = ({product}) => {
       quantity: productEqual,
       id2: `${product.id}-${String(productEqual)}`,
     };
-      console.log(cartState)
+      // console.log(cartState)
 
       AddProductCart(newProduct)
 
@@ -48,7 +48,7 @@ export const Product = ({product}) => {
     <>
 
     <div className='product animate__animated animate__fadeIn'>
-        <img className='image-product' src={`../../../assets/products/${product.id}.webp`} alt="" />
+        <img className='image-product' src={`/assets/products/${product.id}.webp`} alt="" />
         <div className='content-product'>
             <h4 className='item-content-product'>Name: {product.name}</h4>
             <h4 className='item-content-product'>Price: ${product.price}</h4>
@@ -58,7 +58,7 @@ export const Product = ({product}) => {
 
               {
                 product.added ? (
-                  <button onClick={() => onAddProductCart(product)} className='item-content-product button-content-product-added-product'><img src="../../../assets/icons/check-icon-white.png" alt="icon-check" className='check-icon-product animate__animated animate__fadeIn' />Add to cart</button>
+                  <button onClick={() => onAddProductCart(product)} className='item-content-product button-content-product-added-product'><img src="/assets/icons/check-icon-white.png" alt="icon-check" className='check-icon-product animate__animated animate__fadeIn' />Add to cart</button>
                 ) : (
                   <button onClick={() => onAddProductCart(product)} className='item-content-product button-content-product'>Add to cart</button>
                 )
