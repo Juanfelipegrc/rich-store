@@ -14,7 +14,7 @@ export const ContactPage = () => {
               
             <input 
               type="text"
-              placeholder='Usuario'
+              placeholder='Username'
               className='input-contact-page'
 
             />
