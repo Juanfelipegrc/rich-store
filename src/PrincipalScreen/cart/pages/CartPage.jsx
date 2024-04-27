@@ -4,7 +4,7 @@ import { ProductCart } from '../../components/ProductCart';
 
 export const CartPage = () => {
   
-  const {cartState} = useContext(CartContext)
+  const {cartState, RemoveAllProducts} = useContext(CartContext)
 
   const productsInCart = cartState;
 
@@ -57,7 +57,9 @@ export const CartPage = () => {
                 }
               </div>
             </div>
+            
             <div className='container-total-price'>
+              <button className='button-remove-all-products' onClick={() => RemoveAllProducts()} style={getStyleProductsInCart()}>Remove All Products</button>
               <h2>TOTAL: {totalPrice}</h2>
               <button className='button-pay-cart-page'>Pay</button>
             </div>

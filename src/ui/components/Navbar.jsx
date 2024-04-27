@@ -21,15 +21,21 @@ export const Navbar = () => {
     const {pathname} = useLocation();
 
     const menuNav = useRef();
+    const logoMenu = useRef();
 
     const onNavbarView = () => {
         setNavbarView(!navbarView)
     }
+
+
     
     const onNavBarClickOutside = (event) => {
         // console.log(event)
         if(menuNav.current && !menuNav.current.contains(event.target)){
             setNavbarView(false)
+        }
+        if(logoMenu.current.contains(event.target)){
+            setNavbarView(true)
         }
     }
 
@@ -107,7 +113,7 @@ export const Navbar = () => {
             {/* MOBILE */}
 
                 <div className='navbar-mobile'>
-                    <button onClick={() => onNavbarView()}>
+                    <button ref={logoMenu} onClick={() => onNavbarView()}>
                         
                         <img src="/assets/icons/menu.png" alt="" />
 

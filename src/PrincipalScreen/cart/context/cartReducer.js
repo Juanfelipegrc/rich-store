@@ -10,9 +10,11 @@ export const cartReducer = (state = [], action) => {
             ]
         case typesCart.remove:
             return state.filter(product => product.id2 != action.payload)
-    
+            
+        case typesCart.removeAll:
+            return state = action.payload
         default:
-            break;
+            return state;
     }
 
 }

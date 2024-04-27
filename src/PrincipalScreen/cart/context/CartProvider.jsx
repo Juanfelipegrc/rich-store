@@ -39,6 +39,16 @@ export const CartProvider = ({children}) => {
         dispatch(action)
     }
 
+    const RemoveAllProducts = () => {
+        const action = {
+            type: typesCart.removeAll,
+            payload: []
+        }
+
+
+        dispatch(action)
+    }
+
 
     
 
@@ -49,7 +59,8 @@ export const CartProvider = ({children}) => {
             ...cartState,
             cartState: cartState,
             AddProductCart: AddProductCart,
-            RemoveProductCart: RemoveProductCart
+            RemoveProductCart: RemoveProductCart,
+            RemoveAllProducts: RemoveAllProducts,
         }}>
             
             {children}
