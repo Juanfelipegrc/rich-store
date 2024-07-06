@@ -1,19 +1,21 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../../auth/context/AuthContext'
+import React, { useEffect, useRef, useState } from 'react'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+
 import 'animate.css'
+import { logout } from '../../store/slices/auth/authSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { startFirebaseLogout } from '../../store/slices/auth/thunks'
 
 export const Navbar = () => {
     
-    const {logout, user} = useContext(AuthContext);
+    const {displayName} = useSelector(state => state.auth);
+    const {status} = useSelector(state => state.auth)
 
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     const onLogout = () => {
-        logout();
-        navigate('/login',{
-            replace: true,
-        })
+        dispatch(startFirebaseLogout());
     }
 
     const [navbarView, setNavbarView] = useState(false)
@@ -40,6 +42,8 @@ export const Navbar = () => {
     }
 
 
+    const loggedVerification = status === 'authenticated' ? '' : 'none';
+
 
 
     useEffect(() => {
@@ -57,11 +61,30 @@ export const Navbar = () => {
     }, [navbarView])
     
     
+   const splitName = () => {
+    const splitName = displayName?.split(' ')
+    
+    if(!!splitName){
+        const name = `${splitName[0]} ${splitName[1]}`
+        return name
+    }
+   }
 
+   const splitNamePhone = () => {
+    const splitName = displayName?.split(' ')
+    
+    if(!!splitName){
+        const name = `${splitName[0]}`
+        return name
+    }
+   }
+
+   const name = splitName();
+   const namePhone = splitNamePhone();
    
 
   return (
-    <nav className='navbar-personalized'>
+    <nav style={{display: loggedVerification}} className='navbar-personalized'>
 
         <div className='container-navbar'>  
             
@@ -84,7 +107,7 @@ export const Navbar = () => {
                     Logout
                 </button>
                 <span className='usuario-name'>
-                    {user?.name}
+                    {namePhone}
                 </span>
             </div>
 
@@ -149,7 +172,7 @@ export const Navbar = () => {
                     Search
                 </NavLink>
                 <span className='usuario-name'>
-                    {user?.name}
+                    {name}
                 </span>
                 <button onClick={onLogout} className='logout-button-navbar'>
                     Logout

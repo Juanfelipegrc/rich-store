@@ -1,12 +1,18 @@
-import React, { useContext } from 'react'
-import { CartContext } from '../context/CartContext'
+import React, { useEffect } from 'react'
+
 import { ProductCart } from '../../components/ProductCart';
+import { RemoveAllProducts } from '../../../store/slices/cart/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const CartPage = () => {
   
-  const {cartState, RemoveAllProducts} = useContext(CartContext)
+  const {cart} = useSelector(state => state.cart)
+  const dispatch = useDispatch();
 
-  const productsInCart = cartState;
+  const productsInCart = cart;
+
+
+
 
   const getStyleProductsInCart = () => {
     if(productsInCart.length != 0){
@@ -19,6 +25,20 @@ export const CartPage = () => {
   }
   const totalPrice = productsInCart.reduce((total, product) =>  total + Number(product.price), 0);
 
+
+  useEffect(() => {
+    localStorage.setItem('productsInCart', JSON.stringify(cart))
+  }, [cart])
+
+  useEffect(() => {
+    localStorage.removeItem('lastPath', JSON.stringify(location.pathname));
+
+
+    localStorage.setItem('lastPath', JSON.stringify(location.pathname));
+
+
+  }, [location.pathname])
+  
   
 
   return (
@@ -59,7 +79,7 @@ export const CartPage = () => {
             </div>
             
             <div className='container-total-price'>
-              <button className='button-remove-all-products' onClick={() => RemoveAllProducts()} style={getStyleProductsInCart()}>Remove All Products</button>
+              <button className='button-remove-all-products' onClick={() => dispatch(RemoveAllProducts())} style={getStyleProductsInCart()}>Remove All Products</button>
               <h2>TOTAL: {totalPrice}</h2>
               <button className='button-pay-cart-page'>Pay</button>
             </div>

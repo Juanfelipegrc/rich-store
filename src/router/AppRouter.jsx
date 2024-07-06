@@ -1,32 +1,33 @@
 import React from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom'
 import { LoginPage } from '../auth/pages/LoginPage'
 import { PrincipalScreenRoutes } from '../PrincipalScreen/routes/PrincipalScreenRoutes'
 import { PrincipalScreens } from '../PrincipalScreen/pages/PrincipalScreens'
-import { PublicRoutes } from './PublicRoutes'
-import { PrivateRoutes } from './PrivateRoutes'
-import { ProductProvider } from '../PrincipalScreen/context/ProductProvider'
-import { CartProvider } from '../PrincipalScreen/cart/context/CartProvider'
-import { SearchProvider } from '../PrincipalScreen/pages/context/SearchProvider'
+import { AuthPages } from '../auth/pages/AuthPages'
+import { AuthRoutes } from '../auth/routes/AuthRoutes'
+import { useSelector } from 'react-redux'
+import {useCheckAuth} from '../hooks/useCheckAuth'
+import { CheckingAuth } from '../ui/components/CheckingAuth'
+
+
+
 
 export const AppRouter = () => {
 
+  
+  useCheckAuth();
+
+
+
     const router = createBrowserRouter([
         {
-            path: '/login',
-            element: <PublicRoutes> <LoginPage/> </PublicRoutes>,
+            path: '/auth/*',
+            element: <CheckingAuth/>,
+            children: AuthRoutes,
         },
         {
           path: '/',
-          element: <PrivateRoutes>
-                      <CartProvider>
-                        <ProductProvider>
-                          <SearchProvider>
-                            <PrincipalScreens/>
-                          </SearchProvider>
-                        </ProductProvider>
-                      </CartProvider>
-                    </PrivateRoutes>,
+          element: <PrincipalScreens/>,
           children: PrincipalScreenRoutes,
           
           

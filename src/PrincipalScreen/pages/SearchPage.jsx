@@ -1,11 +1,40 @@
-import React, { useContext } from 'react'
-import { SearchContext } from './context/SearchContext'
+import { useDispatch, useSelector } from 'react-redux';
+import { performSearch, setInputValue } from '../../store/slices/search/searchSlice';
 import { Product } from '../components/Product'
 import 'animate.css'
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import queryString from 'query-string';
 
 export const SearchPage = () => {
 
-  const { productsFind, showError, showSearchMessage, showSearch, inputValue, onInputChange, onSubmitForm,} = useContext(SearchContext)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+
+  const {showError, showSearch, productsFind, inputValue } = useSelector(state => state.search)
+
+
+  useEffect(() => {
+    const {q = ''} = queryString.parse(location.search)
+    dispatch(performSearch(q));
+    dispatch(setInputValue(q));
+  }, [location.search])
+  
+  
+  const onInputChange = ({target}) => {
+    dispatch(setInputValue(target.value))
+  }
+
+  const onSubmitForm = (event) => {
+    event.preventDefault(),
+
+    navigate(`?q=${inputValue}`)
+  }
+
+
   return (
     <>
     

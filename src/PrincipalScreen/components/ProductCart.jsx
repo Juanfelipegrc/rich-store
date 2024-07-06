@@ -1,23 +1,36 @@
-import React, { useContext } from 'react'
-import { CartContext } from '../cart/context/CartContext';
-import { ProductContext } from '../context/ProductContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { onSeeMore } from '../../store/slices/productIndividual/productIndividualSlice';
+import { RemoveProductCart } from '../../store/slices/cart/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const ProductCart = ({product}) => {
 
-  const {RemoveProductCart, cartState} = useContext(CartContext);
-  const {onSeeMore} = useContext(ProductContext);
+  const {cart} = useSelector(state => state.cart)
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const onRemoveProductCart = (product) => {
 
-    const productEqual = cartState.filter(productEqual => productEqual.id === product.id)
-    if(cartState.find(productCart => productCart.id === product.id)){
-      product.quantity = productEqual.length;
-      RemoveProductCart(product)
+    const productEqual = cart.filter(productEqual => productEqual.id === product.id)
+    if(cart.find(productCart => productCart.id === product.id)){
+      const updateProduct = { ...product, quantity: productEqual.length }
+      dispatch(RemoveProductCart(updateProduct.id2))
 
     }else{
-      product.quantity = productEqual.length;
-      RemoveProductCart(product) 
+      const updateProduct = { ...product, quantity: productEqual.length }
+      dispatch(RemoveProductCart(updateProduct.id2))
     }
+  }
+
+  
+
+  const onSeeMoreNavigation = () => {
+    dispatch(onSeeMore(product.id))
+    navigate('/product-individual', {
+      replace: true,
+    })
   }
 
 
@@ -34,7 +47,7 @@ export const ProductCart = ({product}) => {
             <h4 className='item-content-product'>Price: ${product.price}</h4>
             <div>
                 <button onClick={() => onRemoveProductCart(product)} className='item-content-product button-content-product'>Remove</button>
-                <button onClick={() => onSeeMore(product.id)}  className='item-content-product button-content-product'>See more</button>
+                <button onClick={() => onSeeMoreNavigation(product.id)}  className='item-content-product button-content-product'>See more</button>
             </div>
         </div>
     </div>

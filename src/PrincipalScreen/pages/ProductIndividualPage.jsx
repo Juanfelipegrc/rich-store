@@ -1,18 +1,23 @@
-import React, { useContext, useEffect } from 'react'
-import { ProductContext } from '../context/ProductContext'
-import { CartContext } from '../cart/context/CartContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import 'animate.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { AddProductCart } from '../../store/slices/cart/cartSlice';
+import { useEffect } from 'react';
 
 
 export const ProductIndividualPage = () => {
 
-  const {productStateSeeMore} = useContext(ProductContext);
-  const {AddProductCart, cartState} = useContext(CartContext)
+  const {productStateSeeMore} = useSelector(state => state.productIndividual);
+  const {cart} = useSelector(state => state.cart)
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
+ 
 
   
+
+  
+
 
   const lastPath = localStorage.getItem('lastPath') || '';
   const onNavigateBack = () => {
@@ -27,36 +32,25 @@ export const ProductIndividualPage = () => {
     }
   }
 
-  const productIndividualValidation = () => {
-    const product = JSON.parse(localStorage.getItem('productIndividual')) || '';
-    if(JSON.stringify(productStateSeeMore) === '{}'){
-      return product
-    }else{
-      return productStateSeeMore
-    }
-  }
-
-  const productIndividual = productIndividualValidation();
 
 
-
-  const productAdded = cartState.find(productAdded => productAdded.id === productIndividual.id) ? true : false;
-  productIndividual.added = productAdded;
+  const productAdded = cart.find(productAdded => productAdded.id === productStateSeeMore.id) ? true : false;
+  const updateProduct = {...productStateSeeMore, added: productAdded};
 
 
   
   const onAddProductCart = (product) => {
 
-    const productEqual = cartState.filter(productEqual => productEqual.id === product.id).length;
+    const productEqual = cart.filter(productEqual => productEqual.id === product.id).length;
  
     const newProduct = {
       ...product,
       quantity: productEqual,
       id2: `${product.id}-${String(productEqual)}`,
     };
-      console.log(cartState)
+      // console.log(cartState)
 
-      AddProductCart(newProduct)
+      dispatch(AddProductCart(newProduct));
     
   
   }
@@ -66,10 +60,10 @@ export const ProductIndividualPage = () => {
     <>
     
         <div className='container-product-individual-page'>
-          <h1 className='title-product-individual'>{productIndividual.name}</h1>
+          <h1 className='title-product-individual'>{productStateSeeMore.name}</h1>
             <div className='container-product-individual animate__animated animate__fadeInLeft'>
               <div className='container-image'>
-                  <img className='image-product-individual-page' src={`/assets/products/${productIndividual.id}.webp`} alt="" />
+                  <img className='image-product-individual-page' src={`/assets/products/${productStateSeeMore.id}.webp`} alt="" />
               </div>
 
 
@@ -77,12 +71,12 @@ export const ProductIndividualPage = () => {
 
                   <div className='container-content-individual-product-section-1'>
                     
-                    <h3>Price: {productIndividual.price}</h3>
+                    <h3>Price: {productStateSeeMore.price}</h3>
                     {
-                productIndividual.added ? (
-                  <button onClick={() => onAddProductCart(productIndividual)} className='item-content-product button-content-product-added-product-individual-page'><img src="../../../../assets/icons/check-icon-white.png" alt="icon-check" className='check-icon-product animate__animated animate__fadeIn' />Add to cart</button>
+                updateProduct.added ? (
+                  <button onClick={() => onAddProductCart(productStateSeeMore)} className='item-content-product button-content-product-added-product-individual-page'><img src="../../../../assets/icons/check-icon-white.png" alt="icon-check" className='check-icon-product animate__animated animate__fadeIn' />Add to cart</button>
                 ) : (
-                  <button onClick={() => onAddProductCart(productIndividual)} className='item-content-product button-content-product-added-product-individual-page'>Add to cart</button>
+                  <button onClick={() => onAddProductCart(productStateSeeMore)} className='item-content-product button-content-product-added-product-individual-page'>Add to cart</button>
                 )
               }
                   </div>
@@ -90,7 +84,7 @@ export const ProductIndividualPage = () => {
 
                   <div className='container-content-individual-product-section-2'>
                     <h3>Description:</h3>
-                    <p>{productIndividual.desc}</p>
+                    <p>{productStateSeeMore.desc}</p>
                   </div>
 
 

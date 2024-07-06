@@ -1,13 +1,49 @@
-import React, { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Product } from '../components/Product'
 import {products} from '../data/products'
-
 import 'animate.css'
-import { SearchContext } from './context/SearchContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { performSearch, setInputValue } from '../../store/slices/search/searchSlice'
+import queryString from 'query-string'
+
+
+
+
 
 export const ProductsPage = () => {
 
-  const { productsFind, showError, showSearchMessage, showSearch, inputValue, onInputChange, onSubmitForm,} = useContext(SearchContext)
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+
+  const {showError, showSearch, productsFind, inputValue } = useSelector(state => state.search)
+
+
+  useEffect(() => {
+    const {q = ''} = queryString.parse(location.search)
+    dispatch(performSearch(q));
+    dispatch(setInputValue(q));
+  }, [location.search])
+  
+  
+  const onInputChange = ({target}) => {
+    dispatch(setInputValue(target.value))
+  }
+
+  const onSubmitForm = (event) => {
+    event.preventDefault(),
+
+    navigate(`?q=${inputValue}`)
+  }
+
+  useEffect(() => {
+    localStorage.setItem('lastPath', JSON.stringify(location.pathname))
+  }, [location.pathname])
+
 
 
 
@@ -18,8 +54,7 @@ export const ProductsPage = () => {
     
         <div className='container-products-page'>
           <h1 className='title-products-page'>TAKE A LOOK AT OUR PRODUCTS</h1>
-          
-            <div className='container-products-search'>
+          <div className='container-products-search'>
               <div className='search-bar'>
                 <h3 className='title-search-bar'>Search</h3>
                 <form className='form-search-bar' onSubmit={onSubmitForm}>
@@ -53,6 +88,7 @@ export const ProductsPage = () => {
                 }
               </div>
             </div>
+            
         </div>
     
     </>
