@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {  useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -25,7 +25,7 @@ const formValidations = {
 
 export const RegisterPage = () => {
 
-  const {status, errorMessage} = useSelector(state => state.auth);
+  const { errorMessage} = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ export const RegisterPage = () => {
       validationPassword: null,
   })
 
-  const {email, password, displayName, onInputChange, onResetForm, formState, displayNameValid, emailValid, passwordValid} = useForm(formData, formValidations)
+  const {email, password, displayName, onInputChange, onResetForm, displayNameValid, emailValid, passwordValid} = useForm(formData, formValidations)
 
 
 
@@ -46,7 +46,7 @@ export const RegisterPage = () => {
   const [buttonSeePassword, setbuttonSeePassword] = useState('Show')
 
 
-  const isAuthenticating = useMemo(() => status === 'checking', [status]);
+
 
   
 

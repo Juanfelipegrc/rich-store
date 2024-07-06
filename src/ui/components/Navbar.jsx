@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-
+import { NavLink, useLocation } from 'react-router-dom'
 import 'animate.css'
-import { logout } from '../../store/slices/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { startFirebaseLogout } from '../../store/slices/auth/thunks'
 

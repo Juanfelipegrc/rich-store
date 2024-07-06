@@ -1,8 +1,8 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import 'animate.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddProductCart } from '../../store/slices/cart/cartSlice';
-import { useEffect } from 'react';
+
 
 
 export const ProductIndividualPage = () => {

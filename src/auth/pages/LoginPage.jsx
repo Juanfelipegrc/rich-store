@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteErrorMessage, login } from '../../store/slices/auth/authSlice';
+import { deleteErrorMessage } from '../../store/slices/auth/authSlice';
 import { useForm, useCheckAuth } from '../../hooks/';
-import { checkingAuthenticaion, startEmailPasswordLogin, startGoogleSignIn } from '../../store/slices/auth/thunks';
+import {  startEmailPasswordLogin, startGoogleSignIn } from '../../store/slices/auth/thunks';
 import { CheckingAuth } from '../../ui/components/CheckingAuth'
 
 const formData = {

@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import 'animate.css';
 import { offertProducts } from '../data/offertProduct';
 import { Product } from '../components/Product';
@@ -9,6 +9,12 @@ import { AboutUs } from '../components/AboutUs';
 export const HomePage = () => {
 
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    localStorage.setItem('lastPath', JSON.stringify(location.pathname))
+  }, [location.pathname])
 
 
   return (
