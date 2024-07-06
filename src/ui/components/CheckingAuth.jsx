@@ -4,7 +4,7 @@ import { useCheckAuth } from '../../hooks';
 
 export const CheckingAuth = () => {
 
-  const status = useCheckAuth()
+
 
 
 
@@ -14,17 +14,12 @@ export const CheckingAuth = () => {
 
     <>
 
-      {
-        status === 'checking' 
-        ? 
+
           <div className='container-loading'>
             <div className='container-loading-2'>
             </div>
           </div> 
 
-        : 
-          <AuthPages/>
-      }
     
       
     </>

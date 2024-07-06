@@ -105,12 +105,21 @@ export const RegisterPage = () => {
   }, [])
 
   
+  
+  const statusChecking = useCheckAuth();
 
+
+
+  
 
   
 
   return (
     <>
+
+      {
+        statusChecking === 'checking' ? <CheckingAuth/>: ''
+      }
 
       
       <div className='container-login'>
